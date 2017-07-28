@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>学生管理系统</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
+  <script type="text/javascript">
+    var _data = [],info_body,numReg = /^\d+$/;
+
+    String.prototype.trim = function() {   
+      return this.replace(/(^\s*)|(\s*$)/g, "");    
+    }
+    
+    //根据ID找到obj
+    function $(id){
+      return document.getElementById(id);
+    }
+
+    //根据id找到学生
+    function getStudentById (id) {
+      for(var i=0;i<_data.length;i++){
+        if(_data[i].id == id){
+          return _data[i];
+        }
+      }
+      return null;
+    }
+    
+    //学生对象
+    function Student(name,sex,number,grade,major){
+      this.id = new Date().getTime();
+      this.name = name ? name : null;
+      this.number = number ? number : 0;
+      this.sex = sex ? sex : '0';
+      this.grade = grade ? grade : null;
+      this.major = major ? major : null;
+    }
+
+    //增加方法
+    function addHandler(){
+      var stu = new Student();
+      stu.name = $('nName').value.trim();
+      stu.number = $('nNumber').value.trim();
+      stu.grade = $('nGrade').value.trim();
+      stu.sex = $('nSex').value.trim();
+      stu.major = $('nMajor').value.trim();
+      if(valid(stu)){
+        _data.push(stu);
+        $('resetButton').click();
+      }
+      showData(_data);
+    }
+
+    //验证输入是否正确
+    function valid(student){
+      if(student.name == ''){
+        alert('用户名不能为空！');
+        return false;
+      }
+
+      if(student.major == ''){
+        alert('专业不能为空！');
+        return false;
+      }
+
+      if(student.grade == ''){
+        alert('年级不能为空！');
+        return false;
+      }
+
+      if(student.number != ''){
+        if(numReg.test(student.number)){
+          var temp = parseInt(student.number,10);
+          if(temp<0){
+            alert('学号输入错误!');
+            return false;
+          }
+        }else{
+          alert('学号请输入数字!');
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    //删除方法
+    function delHandler(id){
+      if(confirm('真的要删除吗？')){
+        var temp = [];
+        for(var i=0;i<_data.length;i++){
+          if(_data[i].id != id){
+            temp.push(_data[i]);
+          }
+        }
+        _data = temp;
+        showData(_data);
+      }
+    }
+
+    //查询方法
+    function search(name,sex,number){
+      //console.log(arguments);
+      var temp = [];
+      for(var i=0;i<_data.length;i++){
+        if("" != name){
+          if(_data[i].name != name){
+            continue;
+          }
+        }
+        if("" != sex){
+          if(_data[i].sex != sex){
+            continue;
+          }
+        }
+        if("" != number){
+          if(_data[i].number != number){
+            continue;
+          }
+        }
+        temp.push(_data[i]);
+      }
+      showData(temp);
+    }
+
+    //根据数据显示内容（html代码生成）
+    function showData(data){
+      info_body = info_body || $('info-body');
+      var html = [];
+      for(var i=0;i<data.length;i++){
+        html.push('<tr>');
+        html.push('<td>'+data[i].name+'</td>');
+        html.push('<td>'+showSex(data[i].sex)+'</td>');
+        html.push('<td>'+ data[i].number+'</td>');
+        html.push('<td>'+data[i].grade+'</td>');
+        html.push('<td>'+data[i].major+'</td>');
+        html.push('<td><button class="btn" style="margin-right:10px;" onclick="editHandler(this,\''+data[i].id+'\')">编辑</button><button class="btn btn-danger" style="margin-right:10px;" onclick="delHandler(\''+data[i].id+'\')">删除</button></td>');
+        html.push('</tr>');
+      }
+      
+      info_body.innerHTML = html.join("");
+    }
+
+    function showSex(v){
+      if(v){
+        if('0' == v){
+          return '男';
+        }else if('1' == v){
+          return '女';
+        }
+      }
+      return 'error';
+    }
+
+    function createSexTag(v){
+      if('0' == v){
+        return '<option value="0">男</option><option value="1">女</option>'; 
+      }else{
+        return '<option value="1">女</option><option value="0">男</option>';
+      }
+    }
+
+    //保存修改内容
+    function saveEidted(id) {
+      var stu = new Student();
+      stu.name = $('eName').value;
+      stu.number = $('eNumber').value;
+      stu.grade = $('eGrade').value;
+      stu.major = $('eMajor').value;
+      stu.sex = $('eSex').value;
+      if(valid(stu)){
+        for(var i=0;i<_data.length;i++){
+          if(_data[i].id == id){
+            _data[i] = stu;
+            showData(_data);
+            break;
+          }
+        }
+      }
+    }
+
+    //编辑
+    function editHandler(obj,id){
+      var pp = obj.parentNode.parentNode;
+      var tds = pp.getElementsByTagName('td');
+      var temp = getStudentById(id);
+      if(null != temp){
+        for(var i=0;i<tds.length;i++){
+          if(0 == i){
+            tds[i].innerHTML = '<input id="eName" style="width:80px" type="text" value="'+temp.name+'">';
+          }
+          if(1 == i){
+            tds[i].innerHTML = '<select id="eSex" style="width:60px;">'+createSexTag(temp.sex)+'</select>'; 
+          }
+          if(2 == i){
+            tds[i].innerHTML = '<input id="eNumber" type="text" style="width:70px" value="'+temp.number+'">'; 
+          }
+          if(3 == i){
+            tds[i].innerHTML = '<input id="eGrade" type="text" style="width:70px"  value="'+temp.grade+'">';  
+          }
+
+          if(4 == i){
+            tds[i].innerHTML = '<input id="eMajor" type="text" style="width:70px"  value="'+temp.major+'">';  
+          }
+
+          if(5 == i){
+            tds[i].innerHTML = '<button class="btn" onclick="saveEidted(\''+id+'\')">保存</button> <button class="btn" onclick="showData(_data)">取消</button>';
+          }
+        } 
+      }else{
+        alert('error!');
+      }
+    }
+
+  </script>
+  <style type="text/css">
+    *{padding: 0;margin: 0;}
+    .stitle{padding-left: 20px;text-align: right;}
+    .sinput{width: 100px;border: 1px #eee solid;margin-top: 10px;}
+    .sslect{width:60px;margin-top: 10px;}
+    .ninput{position: relative;float: left;left:-5px;width: 100%;border: 1px solid #eee;margin: 0;}
+  </style>
+</head>
+<body>
+  <div style="position:fixed;width:100%;background:#eee;z-index:9999;height:100px;overflow:hidden;">
+    <table>
+      <tr>
+        <td class="stitle">姓名:</td>
+        <td><input type="text" class="sinput" id="sName"/></td>
+        <td class="stitle" style="width:50px;">性别:</td>
+        <td>
+          <select id="sSex" class="sslect">
+            <option value=""></option>
+            <option value="0">男</option>
+            <option value="1">女</option>
+          </select>
+        </td>
+        <td class="stitle">学号:</td>
+        <td><input type="text" style="width:50px;" class="sinput" id="sAge"/></td>
+        <td>&nbsp;<input type="button" class="btn" value="查询" onclick="search($('sName').value.trim(),$('sSex').value.trim(),$('sAge').value.trim())"/></td>
+      </tr>
+    </table>
+    <form>
+      <table class="table" id="add-info">
+        <tr>
+          <td width="100"><input class="ninput" type="text" id="nName"/></td>
+          <td width="80" style="overflow:hidden;">
+            <select id="nSex" style="width:80px;">
+              <option value="0">男</option>
+              <option value="1">女</option>
+            </select>
+          </td>
+          <td width="80"><input class="ninput" type="text" id="nNumber"/></td>
+          <td width="80"><input class="ninput" type="text" id="nGrade"/></td>
+          <td width="80"><input class="ninput" type="text" id="nMajor"/></td>
+          <td>
+            <input type="button" class="btn" value="添加" onclick="addHandler()"/>
+            <input type="reset" value="reset" id="resetButton" style="display:none;"/>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div style="position:absolute;top:100px;bottom:0;height:auto;width:auto;left:0;right:0;overflow:auto;">
+    <table class="table table-bordered  table-hover" style="position:absolute;top:0px;z-index:2;" id="info-list">
+      <thead>
+        <tr>
+          <td width="100">姓名</td>
+          <td width="80">性别</td>
+          <td width="80">学号</td>
+          <td width="80">年级</td>
+          <td width="80">专业</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody id="info-body">
+
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
