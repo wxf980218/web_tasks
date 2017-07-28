@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>静态登录页面</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	 <script type="text/javascript">
+        function change1(){
+            var v=document.getElementById("ps")
+                v.type="text";
+        }
+    
+        function change2(){
+            var v=document.getElementById("ps")
+                v.type="password";
+        } 
+
+        function mDown1(id)
+        {  
+           var a=document.getElementById("name1")
+                a.setAttribute('style','font-size: 15px;position: relative;top: 10px;width: 210px;height: 20px;margin-right: 70px;margin-left: 70px;padding-right:165px; color: rgb(130,130,130);');
+                
+           var b=document.getElementById("name2")
+                b.setAttribute('style','font-size: 19px;position: relative;margin-left: 70px;margin-right: 70px;padding-right:185px;top: 23px;color: rgb(130,130,130);');
+        }
+
+        function mDown2(id)
+        {  
+           var a=document.getElementById("name2")
+                a.setAttribute('style','font-size: 15px;position: relative;margin-left: 70px;margin-right: 70px;padding-right:185px;top: 10px;width: 220px;height: 20px;color: rgb(130,130,130);');	
+           var b=document.getElementById("name1")
+                b.setAttribute('style','font-size: 19px;position: relative;top: 23px;margin-right: 70px;margin-left: 70px;padding-right:165px; color: rgb(130,130,130);');
+                
+        }
+
+               
+    </script>
+</head>
+  <style>
+  .container{
+    background-color: rgb(0,120,189);
+    width:950px;
+    height: 600px;
+    margin-top: 50px;
+	//margin:0 auto;
+  }
+
+  .container2{
+   margin-top:50px; 
+   background-color: rgb(254,254,254);
+   width: 40%;
+   height: 80%;
+  }
+  .title{
+    text-align: center;
+  }
+
+  .frame{
+    text-align: center;
+    font-size: 20px;
+    font-family: '微软雅黑';
+    
+  }
+
+  .check1{
+  background-color: rgb(0,120,189);
+  background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .font{
+    margin-left: 10px;
+    color: rgb(130,130,130);
+  }
+
+
+  .button1{
+    margin-left: 50px;
+    margin-bottom: 10px;
+  }
+
+  .button2{
+  }
+  
+  .solid{
+  border: 0;
+  border-bottom: 1px solid ;
+  }
+
+  input:focus{
+  border: 0;
+  border-bottom: 3px solid rgb(254,64,129) ;
+  outline: none;
+  caret-color:blue;
+  }
+  
+   #name1{
+   font-size: 19px;
+   position: relative;
+   top: 23px;
+   margin-right: 70px;
+   margin-left: 70px;
+   padding-right:165px; 
+   color: rgb(130,130,130);
+   transition: width 2s ;
+   -moz-transition: width 2s ; /* Firefox 4 */
+   -webkit-transition: width 2s ; /* Safari and Chrome */
+   -o-transition: width 2s ; /* Opera */
+  }
+
+   #name2{
+   font-size: 19px;
+   position: relative;
+   margin-left: 70px;
+   margin-right: 70px;
+   padding-right:185px;
+   top: 23px;
+   color: rgb(130,130,130);
+   transition: width 2s;
+   -moz-transition:width 2s; /* Firefox 4 */
+   -webkit-transition:  width 2s; /* Safari and Chrome */
+   -o-transition:  width 2s; /* Opera */
+  }
+
+   .name3{
+   font-size: 15px;
+   position: relative;
+   top: 10px;
+   width: 210px;
+   height: 20px;
+   margin-right: 70px;
+   margin-left: 70px;
+   padding-right:165px; 
+   color: rgb(130,130,130);
+   background-color: blue;
+  }
+
+  .name4{
+   font-size: 15px;
+   position: relative;
+   background-color: blue;
+   margin-left: 70px;
+   margin-right: 70px;
+   padding-right:185px;
+   top: 10px;
+   width: 220px;
+   height: 20px;
+   color: rgb(130,130,130);
+  }
+
+  .name5{
+   font-size: 19px;
+   position: relative;
+   top: 23px;
+   margin-right: 70px;
+   margin-left: 70px;
+   padding-right:165px; 
+   color: rgb(130,130,130);
+   background-color: blue;
+  }
+
+  .name6{
+   font-size: 19px;
+   position: relative;
+   background-color: blue;
+   margin-left: 70px;
+   margin-right: 70px;
+   padding-right:185px;
+   top: 23px;
+   color: rgb(130,130,130);
+  }
+
+  .link{
+  	float: left;
+  	margin-top:10px;
+  	margin-left: 70px;
+  }
+
+  a:link{
+  	text-decoration:none;
+  	color: rgb(130,130,130);
+
+  }
+  
+  a:hover{
+  	color: red;
+  }
+
+  
+  .box{
+  	float: right;
+  	margin-top:10px;
+  	margin-right: 70px;	
+  }
+  
+  .img{
+  	width: 50px;
+  	height: 50px;
+  	margin-left: 280px;
+  	transition:width 2s ;
+	-webkit-transition:width 2s;
+	-moz-transition:width 2s;
+	-o-transition:  width 2s;
+  }
+
+  .img:hover
+  {
+	width:80px;
+	height:60px;
+  }
+
+
+  </style>
+<body>
+	<center>
+    <div class="container">
+    <div class="container2">
+     <div class="title">	
+        <img src="1.png" class="img-responsive img-thumbnail"  alt="用户登录" width="180" height="200">
+      </div>
+     <a href=""> <img src="4.jpg" class="img" alt="登录" title="登录"></a>
+      <div class="frame" >
+        <form>
+          <div id="name1">用户名</div>
+          <input type="text" class="solid"  onclick ="mDown1(this)" ><br>
+          <br>
+          <div id="name2">密码</div>
+          <input type="password" class="solid"  onclick="mDown2(this)"   ><br>
+               
+        </form>
+       </div>
+       <div class="link">
+        <a href="">忘记密码</a>
+       </div>
+       <div class="box">
+         <form >
+         <input type="checkbox" class="check1" checked="checked" ><strong class="font" >记住密码</strong><br>
+
+         </form>
+       </div>
+    </div>
+    </div>
+      
+  </center>    
+</body>
+</html>
